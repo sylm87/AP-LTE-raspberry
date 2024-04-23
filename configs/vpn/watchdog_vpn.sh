@@ -23,7 +23,10 @@ then
     # levantamos la VPN
     cd ${vpn_profiles_dir} && nohup /usr/sbin/openvpn --config ${random_vpn_location} --auth-user-pass ${vpn_credentials_conf} &
     exit 0
+else
+    echo "Actualmente existe un OpenVPN corriendo, lo ignoramos..."
+    exit 0
 fi
-echo "Actualmente existe un OpenVPN corriendo, lo ignoramos..."
+
 
 
