@@ -1,0 +1,17 @@
+# /etc/systemd/system/modeswitch_e3372_modem.service
+[Unit]
+Description=Switch E3372 dongle to modem mode
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=usb_modeswitch -v 3566 -p 2001  -X
+ExecStartPost=sleep 1
+ExecStartPost=modprobe option
+ExecStartPost=sleep 1
+ExecStartPost=/bin/bash -c 'echo "3566 2001 ff" | sudo tee /sys/bus/usb-serial/drivers/option1/new_id > /dev/null'
+ExecStartPost=sleep 1
+ExecStartPost=/bin/bash -c 'ls -la /dev/ttyUSB4 | grep dialout && { echo AT^RESET > /dev/ttyUSB4; timeout 2 cat /dev/ttyUSB4; }'
+
+[Install]
+WantedBy=multi-user.target
