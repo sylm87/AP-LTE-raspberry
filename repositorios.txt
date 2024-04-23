@@ -24,3 +24,13 @@ OK-> https://vaibhavji.medium.com/turn-your-raspberrypi-into-a-wifi-router-5ade5
 Uso de la GPIO con python:
 https://roboticsbackend.com/raspberry-pi-gpio-interrupts-tutorial/#Polling_example_with_RPiGPIO
 
+
+lanzamiento de openvpn:
+https://stackoverflow.com/questions/38869427/openvpn-on-linux-passing-username-and-password-in-command-line
+
+ficha técnica raspberry pi zero w:
+https://www.ldlc.com/es-es/ficha/PB00245076.html
+
+Ficheros vpn de vyper VPN:
+https://support.vyprvpn.com/hc/en-us/articles/360038096131-Where-can-I-find-the-OpenVPN-files
+
