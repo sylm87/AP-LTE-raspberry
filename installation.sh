@@ -32,6 +32,7 @@ apache2 \
 git
 
 echo "Creando directorio base en /opt y cargando ficheros de configuración"
+rm -rf /opt/AP-soft/ 2> /dev/null
 mkdir -p /opt/AP-soft/
 
 cp -r ./configs /opt/AP-soft/
