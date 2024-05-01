@@ -24,6 +24,7 @@ apt-get -yq install
 \ python3-rpi.gpio
 \ libapache2-mod-php
 \ apache2
+\ git
 
 mkdir -p /opt/AP-soft/
 
