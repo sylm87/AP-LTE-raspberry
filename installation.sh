@@ -25,7 +25,7 @@ uhubctl \
 net-tools \
 iptables \
 python3 \
-python3-pip \ 
+python3-pip \
 python3-rpi.gpio \
 libapache2-mod-php \
 apache2 \
@@ -37,7 +37,8 @@ mkdir -p /opt/AP-soft/
 cp -r ./configs /opt/AP-soft/
 cp -r ./templates /opt/AP-soft/
 chmod +x /opt/AP-soft/configs/vpn/watchdog_vpn.sh
-ln -s /opt/AP-soft/configs/vpn/watchdog_vpn.sh /sbin/watchdog_vpn.sh
+rm -rf /sbin/watchdog_vpn.sh
+ln -s /opt/AP-soft/configs/vpn/watchdog_vpn.sh /sbin/watchdog_vpn.sh 2> /dev/null
 
 echo "Sustituyendo ficheros de configuración originales"
 mv /etc/dnsmasq.conf /etc/dnsmasq.conf_old 
@@ -45,9 +46,12 @@ mv /etc/dhcpcd.conf /etc/dhcpcd.conf_old
 mv /etc/hostapd/hostapd.conf /etc/hostapd/hostapd.conf_old
 
 echo "Enlazando nuevos ficheros de configuración"
-ln -s /opt/AP-soft/configs/access_point/dnsmasq.conf /etc/dnsmasq.conf
-ln -s /opt/AP-soft/configs/access_point/dhcpcd.conf /etc/dhcpcd.conf
-ln -s /opt/AP-soft/configs/access_point/hostapd.conf /etc/hostapd/hostapd.conf
+rm -rf /etc/dnsmasq.conf
+ln -s /opt/AP-soft/configs/access_point/dnsmasq.conf /etc/dnsmasq.conf 2> /dev/null
+rm -rf /etc/dhcpcd.conf
+ln -s /opt/AP-soft/configs/access_point/dhcpcd.conf /etc/dhcpcd.conf 2> /dev/null
+rm -rf /etc/hostapd/hostapd.conf
+ln -s /opt/AP-soft/configs/access_point/hostapd.conf /etc/hostapd/hostapd.conf 2> /dev/null
 
 echo "Habilitando cron"
 systemctl enable cron.service
