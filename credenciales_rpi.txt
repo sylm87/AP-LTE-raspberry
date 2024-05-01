@@ -1,0 +1,3 @@
+host -> aplab.local
+user -> secuser
+password -> 3Rt@1P,9z
