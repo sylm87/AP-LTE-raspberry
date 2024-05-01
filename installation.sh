@@ -13,23 +13,23 @@ systemctl disable NetworkManager
 
 echo "Instalando dependencias APT"
 apt-get remove -yq cupsd 2> /dev/null
-apt-get -yq install 
-\ dhcpcd
-\ netfilter-persistent
-\ iptables-persistent
-\ aircrack-ng 
-\ dnsmasq
-\ hostapd
-\ libusb-dev
-\ uhubctl
-\ net-tools
-\ iptables
-\ python3
-\ python3-pip 
-\ python3-rpi.gpio
-\ libapache2-mod-php
-\ apache2
-\ git
+apt-get -yq install \
+dhcpcd \
+netfilter-persistent \
+iptables-persistent \
+aircrack-ng \
+dnsmasq \
+hostapd \
+libusb-dev \
+uhubctl \
+net-tools \
+iptables \
+python3 \
+python3-pip \ 
+python3-rpi.gpio \
+libapache2-mod-php \
+apache2 \
+git
 
 echo "Creando directorio base en /opt y cargando ficheros de configuración"
 mkdir -p /opt/AP-soft/
@@ -66,7 +66,7 @@ cd /var/www/html/ && rm -rf ./*
 cp /opt/AP-soft/templates/web_code/index.php /var/www/html/
 
 echo "Recargando configuración Apache2"
-systemctl reload apache2
+systemctl reload apache2 2> /dev/null
 
 echo "Cargando módulos udev para la detección de módem USB Huawei"
 cp /opt/AP-soft/templates/udev_rules/40-huawei.rules /etc/udev/rules.d/
