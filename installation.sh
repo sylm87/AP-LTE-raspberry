@@ -29,7 +29,12 @@ python3-pip \
 python3-rpi.gpio \
 libapache2-mod-php \
 apache2 \
-git
+git \
+ssh
+
+echo "Habilitando SSH"
+systemctl enable ssh
+systemctl start ssh 2> /dev/null
 
 echo "Creando directorio base en /opt y cargando ficheros de configuración"
 rm -rf /opt/AP-soft/ 2> /dev/null
@@ -56,7 +61,7 @@ ln -s /opt/AP-soft/configs/access_point/hostapd.conf /etc/hostapd/hostapd.conf 2
 
 echo "Habilitando cron"
 systemctl enable cron.service
-systemctl start cron.servicels -ls
+systemctl start cron.service
 
 echo "Deshabilitando Apache2 por defecto"
 systemctl disable apache2
