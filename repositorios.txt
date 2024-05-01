@@ -1,0 +1,36 @@
+usb_modeswitch:
+https://unix.stackexchange.com/questions/71062/ubuntu-how-to-configure-dns-servers-in-etc-network-interfaces-correctly-for-re
+https://raspberrypi.stackexchange.com/questions/42385/raspbian-ignores-etc-network-interfaces
+https://askubuntu.com/questions/872489/usb-modeswitch-conf-isnt-loaded-on-startup
+https://superuser.com/questions/1695953/usb-nic-not-initialized-on-boot
+https://www.draisberghof.de/usb_modeswitch/bb/viewtopic.php?t=3043
+
+OK-> https://unix.stackexchange.com/questions/771552/trigger-usb-modeswitch-on-boot-for-huawei-e3372-modem
+
+
+
+
+hostapd, dhcpcd, dnsmasq:
+https://wiki.debian.org/es/NetworkConfiguration
+example whitelist MAC -> https://github.com/sensepost/hostapd-mana/blob/master/hostapd/hostapd.accept
+https://raspberrypi-guide.github.io/networking/create-wireless-access-point
+https://learn.adafruit.com/setting-up-a-raspberry-pi-as-a-wifi-access-point/install-software
+clean iptables -> https://www.cyberciti.biz/tips/linux-iptables-how-to-flush-all-rules.html
+
+OK-> https://vaibhavji.medium.com/turn-your-raspberrypi-into-a-wifi-router-5ade510601de
+
+
+
+Uso de la GPIO con python:
+https://roboticsbackend.com/raspberry-pi-gpio-interrupts-tutorial/#Polling_example_with_RPiGPIO
+
+
+lanzamiento de openvpn:
+https://stackoverflow.com/questions/38869427/openvpn-on-linux-passing-username-and-password-in-command-line
+
+ficha técnica raspberry pi zero w:
+https://www.ldlc.com/es-es/ficha/PB00245076.html
+
+Ficheros vpn de vyper VPN:
+https://support.vyprvpn.com/hc/en-us/articles/360038096131-Where-can-I-find-the-OpenVPN-files
+
