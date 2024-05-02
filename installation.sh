@@ -43,6 +43,7 @@ mkdir -p /opt/AP-soft/
 cp -r ./configs /opt/AP-soft/
 cp -r ./templates /opt/AP-soft/
 chmod +x /opt/AP-soft/configs/vpn/watchdog_vpn.sh
+chmod +x /opt/AP-soft/configs/web-editor/on_off_editor.sh
 rm -rf /sbin/watchdog_vpn.sh
 ln -s /opt/AP-soft/configs/vpn/watchdog_vpn.sh /sbin/watchdog_vpn.sh 2> /dev/null
 
@@ -67,16 +68,17 @@ echo "Deshabilitando Apache2 por defecto"
 systemctl disable apache2
 systemctl stop apache2
 
-echo "limpiando vhosts de Apache2 y cargando web de configuración del AP"
-cd /etc/apache2/sites-enabled && rm -rf ./*
-cd /etc/apache2/sites-available/ && rm -rf ./*
-cp /opt/AP-soft/templates/000-vhost.conf /etc/apache2/sites-available/000-vhost.conf
-/usr/sbin/a2ensite 000-vhost
-cd /var/www/html/ && rm -rf ./*
-cp /opt/AP-soft/templates/web_code/index.php /var/www/html/
+#echo "limpiando vhosts de Apache2 y cargando web de configuración del AP"
+#cd /etc/apache2/sites-enabled && rm -rf ./*
+#cd /etc/apache2/sites-available/ && rm -rf ./*
+#cp /opt/AP-soft/templates/000-vhost.conf /etc/apache2/sites-available/000-vhost.conf
+#/usr/sbin/a2ensite 000-vhost
+#cd /var/www/html/ && rm -rf ./*
+#cp /opt/AP-soft/templates/web_code/index.php /var/www/html/
 
-echo "Recargando configuración Apache2"
-systemctl reload apache2 2> /dev/null
+#echo "Recargando configuración Apache2"
+#systemctl reload apache2 2> /dev/null
+#systemctl start apache2 2> /dev/null
 
 echo "Cargando módulos udev para la detección de módem USB Huawei"
 cp /opt/AP-soft/templates/udev_rules/40-huawei.rules /etc/udev/rules.d/
@@ -84,6 +86,11 @@ cp /opt/AP-soft/templates/udev_rules/40-huawei.rules /etc/udev/rules.d/
 echo "Cargando configuración de crontab"
 (crontab -l; echo "@reboot sleep 4 && /usr/sbin/rfkill unblock wlan && sleep 4 && systemctl restart hostapd") | sort -u | crontab -
 (crontab -l; echo "* * * * * /usr/sbin/watchdog_vpn.sh") | sort -u | crontab -
+
+
+echo "Instalando flask"
+pip3 install --break-system-packages  flask
+pip3 install --break-system-packages  flask_basicauth
 
 echo """
 Últimos pasos manuales:

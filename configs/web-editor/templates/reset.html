@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+   <head>
+      <title>Hello</title>
+{{ reload_header }}
+   </head>
+
+   <body>
+<p>
+<ul>
+<li><a href="vpn-random-profiles">Perfiles activos de VPN</a></li>
+<li><a href="vpn-credenciales">Credenciales VPN</a></li>
+<li><a href="conf-dnsmasq">Configuración DNSmasq</a></li>
+<li><a href="conf-hostapd">Configuración HostAPd</a></li>
+<li><a href="conf-dhcpcd">Configuración DHCPcd</a></li>
+<li><a href="reboot-device">Reiniciar dispositivo</a></li>
+</ul>
+</p>
+
+      <form action="" method="POST">
+        {{ config_file }}
+	<br/>
+        <input type="submit" style="{{ display }}" value="REINICIAR DISPOSITIVO">
+      </form>
+   </body>
+</html>
