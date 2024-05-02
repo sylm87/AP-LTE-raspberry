@@ -12,7 +12,7 @@ systemctl stop NetworkManager
 systemctl disable NetworkManager
 
 echo "Instalando dependencias APT"
-apt-get remove -yq cupsd 2> /dev/null
+apt-get remove -yq ^cups 2> /dev/null
 apt-get -yq install \
 dhcpcd \
 netfilter-persistent \
@@ -46,6 +46,8 @@ chmod +x /opt/AP-soft/configs/vpn/watchdog_vpn.sh
 chmod +x /opt/AP-soft/configs/web-editor/on_off_editor.sh
 rm -rf /sbin/watchdog_vpn.sh
 ln -s /opt/AP-soft/configs/vpn/watchdog_vpn.sh /sbin/watchdog_vpn.sh 2> /dev/null
+rm -rf /sbin/on_off_editor.sh
+ln -s /opt/AP-soft/configs/web-editor/on_off_editor.sh /sbin/on_off_editor.sh 2> /dev/null
 
 echo "Sustituyendo ficheros de configuración originales"
 mv /etc/dnsmasq.conf /etc/dnsmasq.conf_old 
