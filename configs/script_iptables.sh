@@ -10,12 +10,23 @@
 
 /usr/sbin/iptables -A INPUT -i eth0 -p udp --dport 53 -j ACCEPT
 /usr/sbin/iptables -A INPUT -i wlan0 -p udp --dport 53 -j ACCEPT # resolución DNS
+/usr/sbin/iptables -A INPUT -i eth0 -p tcp --dport 53 -j ACCEPT
+/usr/sbin/iptables -A INPUT -i wlan0 -p tcp --dport 53 -j ACCEPT # resolución DNS
+
 
 /usr/sbin/iptables -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
 /usr/sbin/iptables -A INPUT -i wlan0 -p tcp --dport 22 -j ACCEPT # Gestión mediante SSH
 
 /usr/sbin/iptables -A INPUT -i eth0 -p tcp --dport 5000 -j ACCEPT
 /usr/sbin/iptables -A INPUT -i wlan0 -p tcp --dport 5000 -j ACCEPT # Panel gestor de configuración
+
+
+/usr/sbin/iptables -A INPUT -i wlan0 -p udp --dport 5353 -j ACCEPT
+/usr/sbin/iptables -A INPUT -i wlan0 -p udp --dport 68 -j ACCEPT
+/usr/sbin/iptables -A INPUT -i wlan0 -p udp --dport 67 -j ACCEPT
+/usr/sbin/iptables -A INPUT -i eth0 -p udp --dport 67 -j ACCEPT
+/usr/sbin/iptables -A INPUT -i eth0 -p udp --dport 68 -j ACCEPT
+/usr/sbin/iptables -A INPUT -i eth0 -p udp --dport 5353 -j ACCEPT
 
 /usr/sbin/iptables -A INPUT -i eth0 -j DROP
 /usr/sbin/iptables -A INPUT -i wlan0 -j DROP
