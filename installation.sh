@@ -27,7 +27,8 @@ python3-rpi.gpio \
 libapache2-mod-php \
 apache2 \
 git \
-ssh
+ssh \
+pigpio-tools
 
 apt-get remove -yq ^cups dhcpcd udhcpc udhcpd netfilter-persistent iptables-persistent 2> /dev/null
 
@@ -111,6 +112,7 @@ echo "Cargando configuración de crontab"
 (crontab -l; echo "@reboot /usr/sbin/rfkill unblock wlan && systemctl start hostapd") | sort -u | crontab -
 (crontab -l; echo "* * * * * /usr/sbin/watchdog_vpn.sh") | sort -u | crontab -
 (crontab -l; echo "@reboot /usr/sbin/script_iptables.sh") | sort -u | crontab -
+(crontab -l; echo "@reboot sleep 4 && /usr/bin/python3 /root/enable_usb.py") | sort -u | crontab -
 
 
 echo "Instalando flask"
