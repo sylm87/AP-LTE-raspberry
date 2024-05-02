@@ -88,6 +88,7 @@ def conf_dnsmasq():
 @basic_auth.required
 def change_random_profiles():
     content = ''
+    profiles_content = listdir('/opt/AP-soft/configs/vpn/profiles/')
     if request.method == 'POST':
            content = request.form['text_box']
            with open('/opt/AP-soft/configs/vpn/vpn_locations.conf', 'w') as f:
@@ -96,7 +97,7 @@ def change_random_profiles():
         with open('/opt/AP-soft/configs/vpn/vpn_locations.conf', 'r') as f2:
             content = f2.read()
             print(content)
-    return render_template('index.html', config_file=content)
+    return render_template('index.html', config_file=content, bool_profiles=True, profiles=profiles_content)
 
 
 
@@ -104,6 +105,7 @@ def change_random_profiles():
 @basic_auth.required
 def change_config():
     content = ''
+    
     if request.method == 'POST':
            content = request.form['text_box']
            with open('/opt/AP-soft/configs/vpn/credentials.vpn', 'w') as f:
@@ -118,4 +120,4 @@ def change_config():
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", port="5000")

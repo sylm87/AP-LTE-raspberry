@@ -14,10 +14,20 @@
 <li><a href="reboot-device">Reiniciar dispositivo</a></li>
 </ul>
 </p>
-
+{% if bool_profiles %}
+<h2>Perfiles VPN disponibles:</h2>
+<p>
+    <ul>
+        {% for item in profiles %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    <ul>
+</p>
+<hr />
+{% endif %}
       <form action="" method="POST">
         <textarea name="text_box" rows="40" cols="120">{{ config_file }}</textarea>
-	<br/>
+        <br/>
         <input type="submit">
       </form>
    </body>
