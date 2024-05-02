@@ -6,6 +6,7 @@
 
 /usr/sbin/iptables -A INPUT -i eth0 -m state --state ESTABLISHED,RELATED -j ACCEPT
 /usr/sbin/iptables -A INPUT -i wlan0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+/usr/sbin/iptables -A INPUT -i tun0 -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 /usr/sbin/iptables -A INPUT -i eth0 -p udp --dport 53 -j ACCEPT
 /usr/sbin/iptables -A INPUT -i wlan0 -p udp --dport 53 -j ACCEPT # resolución DNS
