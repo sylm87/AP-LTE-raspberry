@@ -50,8 +50,11 @@ def conf_hostapd():
     content = ''
     if request.method == 'POST':
            content = request.form['text_box']
-           with open('/opt/AP-soft/configs/access_point/hostapd.conf', 'w') as f:
+           content = content.replace('\r', '')
+           with open('/opt/AP-soft/configs/access_point/hostapd.conf', 'w', encoding="utf-8") as f:
                    f.write(str(content))
+                   f.flush()
+                   f.close()
     else:
         with open('/opt/AP-soft/configs/access_point/hostapd.conf', 'r') as f2:
             content = f2.read()
@@ -66,8 +69,11 @@ def conf_dnsmasq():
     content = ''
     if request.method == 'POST':
            content = request.form['text_box']
-           with open('/opt/AP-soft/configs/access_point/dnsmasq.conf', 'w') as f:
+           content = content.replace('\r', '')
+           with open('/opt/AP-soft/configs/access_point/dnsmasq.conf', 'w', encoding="utf-8") as f:
                    f.write(str(content))
+                   f.flush()
+                   f.close()
     else:
         with open('/opt/AP-soft/configs/access_point/dnsmasq.conf', 'r') as f2:
             content = f2.read()

@@ -14,8 +14,6 @@ systemctl disable NetworkManager
 echo "Instalando dependencias APT"
 
 apt-get -yq install \
-netfilter-persistent \
-iptables-persistent \
 aircrack-ng \
 dnsmasq \
 hostapd \
@@ -31,7 +29,7 @@ apache2 \
 git \
 ssh
 
-apt-get remove -yq ^cups dhcpcd udhcpc udhcpd 2> /dev/null
+apt-get remove -yq ^cups dhcpcd udhcpc udhcpd netfilter-persistent iptables-persistent 2> /dev/null
 
 echo "Habilitando SSH"
 systemctl enable ssh
@@ -45,10 +43,13 @@ cp -r ./configs /opt/AP-soft/
 cp -r ./templates /opt/AP-soft/
 chmod +x /opt/AP-soft/configs/vpn/watchdog_vpn.sh
 chmod +x /opt/AP-soft/configs/web-editor/on_off_editor.sh
+chmod +x /opt/AP-soft/configs/script_iptables.sh
 rm -rf /sbin/watchdog_vpn.sh
 ln -s /opt/AP-soft/configs/vpn/watchdog_vpn.sh /sbin/watchdog_vpn.sh 2> /dev/null
 rm -rf /sbin/on_off_editor.sh
 ln -s /opt/AP-soft/configs/web-editor/on_off_editor.sh /sbin/on_off_editor.sh 2> /dev/null
+rm -rf /sbin/script_iptables.sh
+ln -s /opt/AP-soft/configs/script_iptables.sh /sbin/script_iptables.sh 2> /dev/null
 
 echo "Sustituyendo ficheros de configuración originales"
 mv /etc/dnsmasq.conf /etc/dnsmasq.conf_old 
@@ -72,8 +73,8 @@ systemctl enable dnsmasq.service
 systemctl start dnsmasq.service
 
 echo "Habilitando hostapd"
-systemctl enable hostapd.service
-systemctl start hostapd.service
+systemctl disable hostapd.service
+
 
 echo "Deshabilitando Apache2 por defecto"
 systemctl disable apache2
@@ -99,10 +100,17 @@ cp /opt/AP-soft/configs/network_interfaces/* /etc/network/interfaces.d/
 echo "Cargando módulos udev para la detección de módem USB Huawei"
 cp /opt/AP-soft/templates/udev_rules/40-huawei.rules /etc/udev/rules.d/
 
+echo "Eliminando reglas iptables"
+iptables -F
+iptables -X
+
+echo "Cargando reglas iptables"
+/usr/sbin/iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
+
 echo "Cargando configuración de crontab"
-(crontab -l; echo "@reboot sleep 4 && /usr/sbin/rfkill unblock wlan && sleep 4 && systemctl restart hostapd") | sort -u | crontab -
+(crontab -l; echo "@reboot /usr/sbin/rfkill unblock wlan && systemctl start hostapd") | sort -u | crontab -
 (crontab -l; echo "* * * * * /usr/sbin/watchdog_vpn.sh") | sort -u | crontab -
-(crontab -l; echo "@reboot /usr/sbin/iptables -t nat -A POSTROUTING -o usb0 -j MASQUERADE") | sort -u | crontab -
+(crontab -l; echo "@reboot /usr/sbin/script_iptables.sh") | sort -u | crontab -
 
 
 echo "Instalando flask"
