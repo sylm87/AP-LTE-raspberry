@@ -26,16 +26,16 @@ def reboot_device():
 
 
 
-@app.route('/conf-dhcpcd', methods=['GET', 'POST'])
+@app.route('/conf-network-cards', methods=['GET', 'POST'])
 @basic_auth.required
-def conf_dhcpcd():
+def conf_network_cards():
     content = ''
     if request.method == 'POST':
            content = request.form['text_box']
-           with open('/opt/AP-soft/configs/access_point/dhcpcd.conf', 'w') as f:
+           with open('/etc/network/interfaces.d/statics', 'w') as f:
                    f.write(str(content))
     else:
-        with open('/opt/AP-soft/configs/access_point/dhcpcd.conf', 'r') as f2:
+        with open('/etc/network/interfaces.d/statics', 'r') as f2:
             content = f2.read()
             print(content)
     return render_template('index.html', config_file=content)

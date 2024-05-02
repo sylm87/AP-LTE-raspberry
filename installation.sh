@@ -12,9 +12,8 @@ systemctl stop NetworkManager
 systemctl disable NetworkManager
 
 echo "Instalando dependencias APT"
-apt-get remove -yq ^cups 2> /dev/null
+
 apt-get -yq install \
-dhcpcd \
 netfilter-persistent \
 iptables-persistent \
 aircrack-ng \
@@ -31,6 +30,8 @@ libapache2-mod-php \
 apache2 \
 git \
 ssh
+
+apt-get remove -yq ^cups dhcpcd udhcpc udhcpd 2> /dev/null
 
 echo "Habilitando SSH"
 systemctl enable ssh
@@ -51,14 +52,14 @@ ln -s /opt/AP-soft/configs/web-editor/on_off_editor.sh /sbin/on_off_editor.sh 2>
 
 echo "Sustituyendo ficheros de configuración originales"
 mv /etc/dnsmasq.conf /etc/dnsmasq.conf_old 
-mv /etc/dhcpcd.conf /etc/dhcpcd.conf_old
+#mv /etc/dhcpcd.conf /etc/dhcpcd.conf_old
 mv /etc/hostapd/hostapd.conf /etc/hostapd/hostapd.conf_old
 
 echo "Enlazando nuevos ficheros de configuración"
 rm -rf /etc/dnsmasq.conf
 ln -s /opt/AP-soft/configs/access_point/dnsmasq.conf /etc/dnsmasq.conf 2> /dev/null
-rm -rf /etc/dhcpcd.conf
-ln -s /opt/AP-soft/configs/access_point/dhcpcd.conf /etc/dhcpcd.conf 2> /dev/null
+#rm -rf /etc/dhcpcd.conf
+#ln -s /opt/AP-soft/configs/access_point/dhcpcd.conf /etc/dhcpcd.conf 2> /dev/null
 rm -rf /etc/hostapd/hostapd.conf
 ln -s /opt/AP-soft/configs/access_point/hostapd.conf /etc/hostapd/hostapd.conf 2> /dev/null
 
@@ -66,9 +67,22 @@ echo "Habilitando cron"
 systemctl enable cron.service
 systemctl start cron.service
 
+echo "Habilitando dnsmasq"
+systemctl enable dnsmasq.service
+systemctl start dnsmasq.service
+
+echo "Habilitando hostapd"
+systemctl enable hostapd.service
+systemctl start hostapd.service
+
 echo "Deshabilitando Apache2 por defecto"
 systemctl disable apache2
 systemctl stop apache2
+
+cp -r /etc/network/interfaces.d /etc/network/interfaces.d_backup
+rm -rf /etc/network/interfaces.d/*
+cp /opt/AP-soft/configs/network_interfaces/* /etc/network/interfaces.d/
+
 
 #echo "limpiando vhosts de Apache2 y cargando web de configuración del AP"
 #cd /etc/apache2/sites-enabled && rm -rf ./*
