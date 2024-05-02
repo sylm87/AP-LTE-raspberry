@@ -102,11 +102,14 @@ cp /opt/AP-soft/templates/udev_rules/40-huawei.rules /etc/udev/rules.d/
 echo "Cargando configuración de crontab"
 (crontab -l; echo "@reboot sleep 4 && /usr/sbin/rfkill unblock wlan && sleep 4 && systemctl restart hostapd") | sort -u | crontab -
 (crontab -l; echo "* * * * * /usr/sbin/watchdog_vpn.sh") | sort -u | crontab -
+(crontab -l; echo "@reboot /usr/sbin/iptables -t nat -A POSTROUTING -o usb0 -j MASQUERADE") | sort -u | crontab -
 
 
 echo "Instalando flask"
 pip3 install --break-system-packages  flask
 pip3 install --break-system-packages  flask_basicauth
+
+
 
 echo """
 Últimos pasos manuales:
