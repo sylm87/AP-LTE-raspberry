@@ -112,7 +112,7 @@ echo "Cargando configuración de crontab"
 (crontab -l; echo "@reboot /usr/sbin/rfkill unblock wlan && systemctl start hostapd") | sort -u | crontab -
 (crontab -l; echo "* * * * * /usr/sbin/watchdog_vpn.sh") | sort -u | crontab -
 (crontab -l; echo "@reboot /usr/sbin/script_iptables.sh") | sort -u | crontab -
-(crontab -l; echo "@reboot sleep 4 && /usr/bin/python3 /root/enable_usb.py") | sort -u | crontab -
+(crontab -l; echo "@reboot sleep 4 && /usr/bin/python3 /opt/AP-soft/configs/gpio_control/enable_usb.py") | sort -u | crontab -
 
 
 echo "Instalando flask"
