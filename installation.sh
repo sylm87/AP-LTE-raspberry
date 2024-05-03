@@ -28,7 +28,8 @@ libapache2-mod-php \
 apache2 \
 git \
 ssh \
-pigpio-tools
+pigpio-tools \
+cpufrequtils
 
 apt-get remove -yq ^cups dhcpcd udhcpc udhcpd netfilter-persistent iptables-persistent 2> /dev/null
 
@@ -113,7 +114,7 @@ echo "Cargando configuración de crontab"
 (crontab -l; echo "* * * * * /usr/sbin/watchdog_vpn.sh") | sort -u | crontab -
 (crontab -l; echo "@reboot /usr/sbin/script_iptables.sh") | sort -u | crontab -
 (crontab -l; echo "@reboot sleep 4 && /usr/bin/python3 /opt/AP-soft/configs/gpio_control/enable_usb.py") | sort -u | crontab -
-
+(crontab -l; echo "@reboot sleep 4 && /usr/bin/cpufreq-set -u 600MHz -d 600MHz") | sort -u | crontab -
 
 echo "Instalando flask"
 pip3 install --break-system-packages  flask
