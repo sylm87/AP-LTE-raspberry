@@ -29,7 +29,11 @@ apache2 \
 git \
 ssh \
 pigpio-tools \
-cpufrequtils
+cpufrequtils \
+python3-tornado \
+python3-mapproxy \
+mitmproxy
+
 
 apt-get remove -yq ^cups dhcpcd udhcpc udhcpd netfilter-persistent iptables-persistent 2> /dev/null
 

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+/usr/sbin/iptables -t nat -F
+/usr/sbin/iptables -F
+/usr/sbin/iptables -X
+
 /usr/sbin/iptables -P INPUT ACCEPT
 /usr/sbin/iptables -P OUTPUT ACCEPT
 /usr/sbin/iptables -P FORWARD ACCEPT
@@ -20,6 +24,8 @@
 /usr/sbin/iptables -A INPUT -i eth0 -p tcp --dport 5000 -j ACCEPT
 /usr/sbin/iptables -A INPUT -i wlan0 -p tcp --dport 5000 -j ACCEPT # Panel gestor de configuración
 
+/usr/sbin/iptables -A INPUT -i eth0 -p tcp --dport 5001 -j ACCEPT
+/usr/sbin/iptables -A INPUT -i wlan0 -p tcp --dport 5001 -j ACCEPT # proxy inverso modem LTE
 
 /usr/sbin/iptables -A INPUT -i wlan0 -p udp --dport 5353 -j ACCEPT
 /usr/sbin/iptables -A INPUT -i wlan0 -p udp --dport 68 -j ACCEPT
